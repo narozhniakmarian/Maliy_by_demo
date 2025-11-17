@@ -1,0 +1,152 @@
+.heroSection {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    padding-top: calc(var(--index)* 5);
+    padding-bottom: calc(var(--index)* 2);
+    background-color: var(--background);
+}
+
+.heroBg {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.3s ease-out;
+    will-change: transform;
+}
+
+.heroOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+}
+
+.heroImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+
+}
+
+.heroStaticLayer {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.heroImage {
+    transform: translateZ(-50px);
+}
+
+.heroStaticLayer {
+    transform: translateZ(-0);
+}
+
+.heroContent {
+    transform: translateZ(20px);
+}
+
+.heroContent {
+    min-width: 240px;
+    position: absolute;
+    /* top: 55%; */
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.6rem 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(50px);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+
+}
+
+.heroTitle {
+    font-size: calc(var(--index)* 3);
+    font-family: serif;
+    font-weight: bold;
+    line-height: calc(var(--index)* 2.2);
+    color: var(--white-text);
+    margin-bottom: calc(var(--index)* 1.5);
+    animation: slide-in-up 0.6s ease-out both;
+}
+
+
+
+.heroSubtitle {
+    font-size: calc(var(--index)* 0.9);
+    color: var(--white-text);
+    max-width: 42rem;
+    margin-bottom: calc(var(--index)* 1.5);
+    animation: slide-in-up 0.6s ease-out 0.1s both;
+}
+
+
+
+.heroButton {
+    padding: calc(var(--index)* 0.8) calc(var(--index)* 1.2);
+    background-image: var(--gold-metal);
+    background-size: 300% 100%;
+    background-repeat: no-repeat;
+    animation: goldMove 6s linear infinite;
+    color: var(--primary-foreground);
+    font-weight: bold;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    animation: goldMove 0.6s ease-out;
+    transform: translateY(0);
+    cursor: pointer;
+}
+
+.heroButton:hover {
+    background-color: var(--accent);
+    transform: scale(1.05);
+}
+
+
+@keyframes goldMove {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 100% 0%;
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(-0.5rem);
+    }
+}
+
+@keyframes slide-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(1rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

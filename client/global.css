@@ -1,0 +1,191 @@
+/** @import must precede all other statements */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@layer base {
+  :root {
+
+    --index: calc(1vw + 1vh);
+    --transition: 1.5s cubic-bezier(.05, .5, 0, 1);
+    --white-text: hsl(0 0% 100%);
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(20 14% 8%);
+    --background-rgb: 255, 255, 255;
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(20 14% 8%);
+
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(20 14% 8%);
+
+    --primary: hsl(46, 83%, 52%);
+    --primary-foreground: hsl(20 14% 8%);
+    --link-hover: hsl(224, 98%, 49%);
+    --gold-metal: linear-gradient(90deg,
+        rgb(242, 177, 13) 0%,
+        rgb(251, 217, 81) 20%,
+        rgb(242, 185, 13) 40%,
+        rgb(226, 174, 43) 60%,
+        rgb(251, 217, 81) 80%,
+        rgb(242, 177, 13) 100%);
+
+    --secondary: hsl(20 14% 8%);
+    --secondary-foreground: hsl(0 0% 100%);
+
+    --muted: hsl(215 14% 34%);
+    --muted-foreground: hsl(215 14% 60%);
+
+    --accent: hsl(44 82% 48%);
+    --accent-foreground: hsl(20 14% 8%);
+
+    --destructive: hsl(0 84.2% 60.2%);
+    --destructive-foreground: hsl(210 40% 98%);
+
+    --border: hsl(215 14% 90%);
+    --input: hsl(215 14% 90%);
+    --ring: hsl(44 82% 48%);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: hsl(0 0% 98%);
+    --sidebar-foreground: hsl(240 5.3% 26.1%);
+    --sidebar-primary: hsl(240 5.9% 10%);
+    --sidebar-primary-foreground: hsl(0 0% 98%);
+    --sidebar-accent: hsl(240 4.8% 95.9%);
+    --sidebar-accent-foreground: hsl(240 5.9% 10%);
+    --sidebar-border: hsl(220 13% 91%);
+    --sidebar-ring: hsl(217.2 91.2% 59.8%);
+
+    --social-button-background: rgba(8, 130, 245, 0.2);
+    --social-button-hover-background: rgba(9, 128, 248, 0.4);
+
+
+    --wave-color-1: rgba(29, 162, 255, 0.63);
+    --wave-color-2: rgba(29, 162, 255, 0.77);
+    --star-color: rgba(139, 132, 6, 0.637);
+    --shadow-start: rgba(0, 0, 0, 0.2);
+    --shadow-end: rgba(0, 0, 0, 0);
+  }
+
+  .dark {
+    --background: hsl(12, 12%, 8%);
+    --foreground: hsl(0 0% 98%);
+    --background-rgb: 20, 19, 18;
+    --card: hsl(20 14% 15%);
+    --card-foreground: hsl(0 0% 98%);
+
+    --popover: hsl(20 14% 15%);
+    --popover-foreground: hsl(0 0% 98%);
+
+
+    --secondary: hsl(0 0% 100%);
+    --secondary-foreground: hsl(20 14% 8%);
+    --link-hover: hsl(44 82% 48%);
+    --muted: hsl(215 14% 30%);
+    --muted-foreground: hsl(215 14% 60%);
+
+    --accent: hsl(44 82% 48%);
+    --accent-foreground: hsl(20 14% 8%);
+
+    --destructive: hsl(0 62.8% 30.6%);
+    --destructive-foreground: hsl(210 40% 98%);
+
+    --border: hsl(20 14% 25%);
+    --input: hsl(20 14% 25%);
+    --ring: hsl(44 82% 48%);
+
+    --sidebar-background: hsl(240 5.9% 10%);
+    --sidebar-foreground: hsl(240 4.8% 95.9%);
+    --sidebar-primary: hsl(224.3 76.3% 48%);
+    --sidebar-primary-foreground: hsl(0 0% 100%);
+    --sidebar-accent: hsl(240 3.7% 15.9%);
+    --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+    --sidebar-border: hsl(240 3.7% 15.9%);
+    --sidebar-ring: hsl(217.2 91.2% 59.8%);
+
+    --social-button-background: rgba(246, 213, 0, 0.1);
+    --social-button-hover-background: rgba(251, 194, 6, 0.3);
+
+
+
+    --wave-color-1: rgba(29, 162, 255, 0.63);
+    --wave-color-2: rgba(29, 162, 255, 0.77);
+    --star-color: #fff8;
+
+    --shadow-start: rgba(255, 255, 255, 0.1);
+    --shadow-end: rgba(255, 255, 255, 0);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply text-foreground;
+    background-color: var(--background);
+  }
+
+  :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  pre,
+  code {
+    overflow-x: auto;
+    white-space: pre;
+  }
+}
+
+
+
+.container {
+  min-width: 380px;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Styles for Tablet devices */
+@media only screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 28px;
+  }
+}
+
+@media only screen and (min-width: 918px) {
+  .container {
+    max-width: 918px;
+    padding: 0 38px;
+  }
+}
+
+/* Styles for Desktop devices */
+@media only screen and (min-width: 1240px) {
+  .container {
+    max-width: 1240px;
+    padding: 0 66px;
+  }
+}
+
+
+@keyframes goldMove {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  100% {
+    background-position: 100% 0%;
+  }
+}
