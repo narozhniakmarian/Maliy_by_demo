@@ -18,4 +18,4 @@ const PageSchema = new Schema({
 });
 
 
-export const Page = model('Page', PageSchema);
+export const GalleryImage = model('GalleryImage', PageSchema);

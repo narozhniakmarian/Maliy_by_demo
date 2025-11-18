@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { celebrate } from "celebrate";
-import { validateCreatePage, validateGetAllPages, validatePageIdParam, validateUpdatePage } from "../validations/validationsGallery";
-import { createPage, deletePage, getAllPage, getPageById, updatePage } from "../controllers/controllersGallery";
-import { validateCreateProduct, validateGetAllProduct, validateProductIdParam, validateUpdateProduct } from "../validations/validationsProduct";
-import { createProduct, deleteProduct, getAllProduct, getProductById, updateProduct } from "../controllers/controllersProduct";
-import { upload } from "../middelware/multer";
+import { validateCreatePage, validateGetAllPages, validatePageIdParam, validateUpdatePage } from "../validations/validationsGallery.js";
+import { createPage, deletePage, getAllPage, getPageById, updatePage } from "../controllers/controllersGallery.js";
+import { validateCreateProduct, validateGetAllProduct, validateProductIdParam, validateUpdateProduct } from "../validations/validationsProduct.js";
+import { createProduct, deleteProduct, getAllProduct, getProductById, updateProduct } from "../controllers/controllersProduct.js";
+import { upload } from "../middleware/multer.js";
 
 
 const router = Router();
@@ -28,3 +28,4 @@ router.delete('/store/:productId', celebrate(validateProductIdParam), deleteProd
 router.patch('/gallery/:pageId', upload.single('image'), celebrate(validateUpdatePage), updatePage);
 router.patch('/store/:productId', upload.array('image', 12), celebrate(validateUpdateProduct), updateProduct);
 
+export default router;

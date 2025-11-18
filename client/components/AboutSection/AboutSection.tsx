@@ -5,7 +5,7 @@ import Swiper from "swiper";
 import "swiper/css/autoplay";
 import "swiper/css";
 import "swiper/css/effect-cards";
-import SwiperAbout from "./swiperAbout/swiperAbout";
+// import SwiperAbout from "./swiperAbout/SwiperAbout";
 
 interface SlideImage {
   title: string;

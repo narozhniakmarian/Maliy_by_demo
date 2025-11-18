@@ -2,6 +2,19 @@
 import path from "path";
 import { createServer } from "./index.ts";
 import * as express from "express";
+import { connectMongoDB } from "./db/connectMongoDB.js";
+
+//! тимчасове рішення
+import fs from "fs";
+
+let clientPort = "8080";
+try {
+  clientPort = fs.readFileSync(".vite-port", "utf-8");
+} catch {
+  console.warn("⚠️ Could not read .vite-port, falling back to 8080");
+}
+
+//!
 
 const app = createServer();
 const port = process.env.PORT || 3000;
@@ -21,10 +34,14 @@ app.get("/", (req, res) => {
 
   res.sendFile(path.join(distPath, "index.html"));
 });
+
+await connectMongoDB();
 app.listen(port, () => {
   console.log(`🚀 Fusion Starter server running on port ${port}`);
-  console.log(`📱 Frontend: http://localhost:${port}`);
-  console.log(`🔧 API: http://localhost:${port}/api`);
+  console.log(`📱 Frontend: http://localhost:${clientPort}`);
+  console.log(
+    `🌍 API running at: ${process.env.NODE_ENV === "production" ? "https://your-backend-name.onrender.com" : `http://localhost:${port}`}`,
+  );
 });
 
 // Graceful shutdown

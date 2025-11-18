@@ -80,7 +80,7 @@ export default function SEO({
       'script[type="application/ld+json"]',
     );
     if (!scriptTag) {
-      scriptTag = document.createElement("script");
+      const scriptTag = document.createElement("script") as HTMLScriptElement;
       scriptTag.type = "application/ld+json";
       document.head.appendChild(scriptTag);
     }

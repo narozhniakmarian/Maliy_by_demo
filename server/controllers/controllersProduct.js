@@ -1,7 +1,7 @@
 
 import createHttpError from "http-errors";
-import { Product } from "../models/modelsProduct";
-import { saveFileToCloudinary } from "../untils/saveFileToCloudinary";
+import { Product } from "../models/modelsProduct.js";
+import { saveFileToCloudinary } from "../untils/saveFileToCloudinary.js";
 
 
 export const getAllProduct = async (req, res, next) => {

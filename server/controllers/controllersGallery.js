@@ -1,11 +1,11 @@
 
 import createHttpError from "http-errors";
-import { Page } from "../models/modelsGallery";
-import { saveFileToCloudinary } from "../untils/saveFileToCloudinary";
+import { GalleryImage } from "../models/modelsGallery.js";
+import { saveFileToCloudinary } from "../untils/saveFileToCloudinary.js";
 
 export const getAllPage = async (req, res, next) => {
     try {
-        const pages = await Page.find();
+        const pages = await GalleryImage.find();
 
         res.status(200).json(pages);
     } catch (error) {
@@ -17,7 +17,7 @@ export const getAllPage = async (req, res, next) => {
 
 export const getPageById = async (req, res, next) => {
     const { pageId } = req.params;
-    const page = await Page.findById(pageId);
+    const page = await GalleryImage.findById(pageId);
     if (!page) {
         next(createHttpError(404, 'image not found'));
     }
@@ -39,7 +39,7 @@ export const createPage = async (req, res, next) => {
 
         const { optimizedUrl } = await saveFileToCloudinary(req.file.buffer);
 
-        const page = await Page.create({ src: optimizedUrl, alt: alt.trim() });
+        const page = await GalleryImage.create({ src: optimizedUrl, alt: alt.trim() });
 
         res.status(201).json({ url: optimizedUrl, page });
     } catch (err) {
@@ -50,7 +50,7 @@ export const createPage = async (req, res, next) => {
 
 export const deletePage = async (req, res, next) => {
     const { pageId } = req.params;
-    const page = await Page.findOneAndDelete({
+    const page = await GalleryImage.findOneAndDelete({
         _id: pageId,
     });
 
@@ -65,7 +65,7 @@ export const updatePage = async (req, res, next) => {
     try {
         const { pageId } = req.params;
 
-        const existingPage = await Page.findById(pageId);
+        const existingPage = await GalleryImage.findById(pageId);
         if (!existingPage) {
             return next(createHttpError(404, 'Page not found'));
         }
@@ -85,7 +85,7 @@ export const updatePage = async (req, res, next) => {
             return next(createHttpError(400, 'No data provided for update'));
         }
 
-        const updatedPage = await Page.findByIdAndUpdate(pageId, updates, {
+        const updatedPage = await GalleryImage.findByIdAndUpdate(pageId, updates, {
             new: true,
         });
 
