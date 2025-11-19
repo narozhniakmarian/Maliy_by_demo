@@ -38,7 +38,7 @@ export const createProduct = async (req, res, next) => {
 
         const productData = {
             ...req.body,
-            images: optimizedUrls,
+            image: optimizedUrls,
         };
 
         const product = await Product.create(productData);
@@ -77,7 +77,7 @@ export const updateProduct = async (req, res, next) => {
         if (req.files && req.files.length > 0) {
             const uploadResults = await Promise.all(req.files.map((file) => saveFileToCloudinary(file.buffer, 'products')));
             const optimizedUrls = uploadResults.map((r) => r.optimizedUrl);
-            updates.images = optimizedUrls;
+            updates.image = optimizedUrls;
         }
 
         Object.assign(updates, req.body);
