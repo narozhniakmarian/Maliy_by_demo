@@ -1,4 +1,7 @@
 import { useToast } from "@/hooks/use-toast";
+
+/* @vite-ignore */
+
 import {
   Toast,
   ToastClose,

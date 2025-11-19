@@ -4,7 +4,7 @@ import { isValidObjectId } from 'mongoose';
 
 export const validateGetAllProduct = {
     [Segments.QUERY]: Joi.object({
-        color: Joi.string(), // ?color=red
+        color: Joi.string(),
         price: Joi.number().min(0),
 
     }),
@@ -25,19 +25,17 @@ export const validateProductIdParam = {
 export const validateCreateProduct = {
     [Segments.BODY]: Joi.object({
         title: Joi.string().trim().min(1).required(),
-        // images: Joi.array().items(Joi.string().uri()).min(1).required(),
         description: Joi.string().trim().allow(''),
-        dimensions: Joi.object({
-            length: Joi.number().positive().required(),
-            height: Joi.number().positive().required(),
-            width: Joi.number().positive().required(),
-        }).required(),
+
+        length: Joi.number().positive().required(),
+        height: Joi.number().positive().required(),
+        width: Joi.number().positive().required(),
         weight: Joi.number().positive().required(),
         colors: Joi.array().items(Joi.string().trim()).min(1).required(),
+
         price: Joi.number().min(0).required(),
     }),
 };
-
 
 
 export const validateUpdateProduct = {
@@ -53,13 +51,14 @@ export const validateUpdateProduct = {
         title: Joi.string().trim(),
         // images: Joi.array().items(Joi.string().uri()),
         description: Joi.string().trim(),
-        dimensions: Joi.object({
-            length: Joi.number().positive(),
-            height: Joi.number().positive(),
-            width: Joi.number().positive(),
-        }),
+        // allow updating nested dimensions partially
+
+        length: Joi.number().positive(),
+        height: Joi.number().positive(),
+        width: Joi.number().positive(),
         weight: Joi.number().positive(),
-        colors: Joi.array().items(Joi.string().trim()),
+        colors: Joi.array().items(Joi.string().trim()).min(1),
+
         price: Joi.number().min(0),
     }).min(1), // хоча б одне поле має бути
 };

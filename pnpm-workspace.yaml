@@ -1,0 +1,5 @@
+ignoredBuiltDependencies:
+  - '@swc/core'
+  - '@tsparticles/engine'
+  - bcrypt
+  - esbuild

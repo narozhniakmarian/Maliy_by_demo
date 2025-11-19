@@ -4,7 +4,7 @@ import { isValidObjectId } from 'mongoose';
 
 export const validateGetAllPages = {
     [Segments.QUERY]: Joi.object({
-        alt: Joi.string().trim(),
+        description: Joi.string().trim(),
     }),
 };
 
@@ -23,7 +23,7 @@ export const validatePageIdParam = {
 export const validateCreatePage = {
     [Segments.BODY]: Joi.object({
         // src: Joi.string().uri().required(),
-        alt: Joi.string().trim().min(1).required(),
+        description: Joi.string().trim().optional(),
     }),
 };
 
@@ -39,6 +39,6 @@ export const validateUpdatePage = {
     }),
     [Segments.BODY]: Joi.object({
         // src: Joi.string().uri(),
-        alt: Joi.string().trim(),
+        description: Joi.string().trim(),
     }).min(1),
 };

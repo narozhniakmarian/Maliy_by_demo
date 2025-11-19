@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { Page } from "../models/modelsGallery.js"
+import mongoose from 'mongoose';
+import { GalleryImage } from '../models/modelsGallery.js'
 
 export const connectMongoDB = async () => {
     try {
@@ -8,7 +8,7 @@ export const connectMongoDB = async () => {
         await mongoose.connect(mongoUrl);
         console.log('✅ MongoDB connection established successfully');
 
-        await Page.syncIndexes();
+        await GalleryImage.syncIndexes();
         console.log("Indexes synced successfully");
 
         if (!mongoUrl) {

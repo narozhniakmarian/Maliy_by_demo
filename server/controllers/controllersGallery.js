@@ -1,7 +1,7 @@
 
-import createHttpError from "http-errors";
-import { GalleryImage } from "../models/modelsGallery.js";
-import { saveFileToCloudinary } from "../untils/saveFileToCloudinary.js";
+import createHttpError from 'http-errors';
+import { GalleryImage } from '../models/modelsGallery.js';
+import { saveFileToCloudinary } from '../untils/saveFileToCloudinary.js';
 
 export const getAllPage = async (req, res, next) => {
     try {
@@ -27,19 +27,25 @@ export const getPageById = async (req, res, next) => {
 
 export const createPage = async (req, res, next) => {
     try {
-        const { alt } = req.body;
+        console.log('CREATE PAGE TRIGGERED');
+
+        const { description } = req.body;
+        console.log('req.body:', req.body);
+        console.log('req.file:', req.file);
 
         if (!req.file) {
             return next(createHttpError(400, 'No image uploaded'));
         }
 
-        if (!alt || alt.trim().length === 0) {
-            return next(createHttpError(400, 'Alt text is required'));
-        }
+        // if (!description || description.trim().length === 0) {
+        //     return next(createHttpError(400, 'Alt text is required'));
+        // }
 
         const { optimizedUrl } = await saveFileToCloudinary(req.file.buffer);
 
-        const page = await GalleryImage.create({ src: optimizedUrl, alt: alt.trim() });
+        const page = await GalleryImage.create({ imageUrl: optimizedUrl, description: description.trim() });
+        console.log('Saved page:', page);
+
 
         res.status(201).json({ url: optimizedUrl, page });
     } catch (err) {
@@ -72,11 +78,11 @@ export const updatePage = async (req, res, next) => {
 
         const updates = {};
 
-        if (req.body.alt) {
-            updates.alt = req.body.alt.trim();
+        if (req.body.description) {
+            updates.description = req.body.description.trim();
         }
 
-        if (req.file) {
+        if (req.description) {
             const { optimizedUrl } = await saveFileToCloudinary(req.file.buffer);
             updates.src = optimizedUrl;
         }

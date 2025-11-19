@@ -29,7 +29,7 @@ export const getProductById = async (req, res, next) => {
 
 export const createProduct = async (req, res, next) => {
     try {
-        if (!req.file) {
+        if (!req.files || req.files.length === 0) {
             return next(createHttpError(400, 'No product image uploaded'));
         }
 

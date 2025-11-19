@@ -17,7 +17,7 @@ export function createServer() {
   app.use(logger);
   app.use(
     cors({
-      origin: process.env.CLIENT_ORIGIN || "http://localhost:8080",
+      origin: process.env.CLIENT_ORIGIN || "http://localhost:3000",
     }),
   );
   app.use(express.json());

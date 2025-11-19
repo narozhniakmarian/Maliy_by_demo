@@ -1,21 +1,13 @@
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose"; // ✅
 
-
-const PageSchema = new Schema({
-    src: {
-        type: String,
-        required: true,
-        trim: true,
+const gallerySchema = new mongoose.Schema({
+    description: String,
+    image: String,
+    createdAt: {
+        type: Date,
+        default: Date.now,
     },
-    alt: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-}, {
-    timestamps: true,
-    versionKey: false,
 });
 
-
-export const GalleryImage = model('GalleryImage', PageSchema);
+export const GalleryImage =
+    mongoose.models.GalleryImage || mongoose.model("GalleryImage", gallerySchema);
