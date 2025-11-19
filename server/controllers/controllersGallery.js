@@ -43,7 +43,7 @@ export const createPage = async (req, res, next) => {
 
         const { optimizedUrl } = await saveFileToCloudinary(req.file.buffer);
 
-        const page = await GalleryImage.create({ imageUrl: optimizedUrl, description: description.trim() });
+        const page = await GalleryImage.create({ image: optimizedUrl, description: description ? description.trim() : '' });
         console.log('Saved page:', page);
 
 
@@ -82,9 +82,9 @@ export const updatePage = async (req, res, next) => {
             updates.description = req.body.description.trim();
         }
 
-        if (req.description) {
+        if (req.file) {
             const { optimizedUrl } = await saveFileToCloudinary(req.file.buffer);
-            updates.src = optimizedUrl;
+            updates.image = optimizedUrl;
         }
 
         if (Object.keys(updates).length === 0) {
