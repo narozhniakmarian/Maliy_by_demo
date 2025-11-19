@@ -33,11 +33,12 @@ export const createProduct = async (req, res, next) => {
             return next(createHttpError(400, 'No product image uploaded'));
         }
 
-        const { optimizedUrl } = await saveFileToCloudinary(req.file.buffer, 'products');
+        const uploadResults = await Promise.all(req.files.map((file) => saveFileToCloudinary(file.buffer, 'products')));
+        const optimizedUrls = uploadResults.map((r) => r.optimizedUrl);
 
         const productData = {
             ...req.body,
-            images: [optimizedUrl],
+            images: optimizedUrls,
         };
 
         const product = await Product.create(productData);
@@ -73,9 +74,10 @@ export const updateProduct = async (req, res, next) => {
 
         const updates = {};
 
-        if (req.file) {
-            const { optimizedUrl } = await saveFileToCloudinary(req.file.buffer, 'products');
-            updates.images = [optimizedUrl];
+        if (req.files && req.files.length > 0) {
+            const uploadResults = await Promise.all(req.files.map((file) => saveFileToCloudinary(file.buffer, 'products')));
+            const optimizedUrls = uploadResults.map((r) => r.optimizedUrl);
+            updates.images = optimizedUrls;
         }
 
         Object.assign(updates, req.body);
