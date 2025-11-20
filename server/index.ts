@@ -25,7 +25,7 @@ export function createServer() {
   app.use(helmet());
   app.use(cookieParser());
 
-  app.use(routes);
+  app.use('/api/', routes);
 
   app.use(notFoundHandler);
   app.use(errors());
