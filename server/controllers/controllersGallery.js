@@ -7,7 +7,7 @@ export const getAllPage = async (req, res, next) => {
     try {
         const pages = await GalleryImage.find();
 
-        res.status(200).json(pages);
+        res.status(200).json({ data: pages });
     } catch (error) {
         next(error);
     }
