@@ -28,7 +28,7 @@ export function createServer() {
 
   // Routes are mounted by Vite middleware at the `/api` prefix already
   // so register routes at root here (requests will arrive under `/api`).
-  app.use('/', routes);
+  app.use("/api", routes);
 
   app.use(notFoundHandler);
   app.use(errors());
