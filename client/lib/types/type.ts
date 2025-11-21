@@ -5,16 +5,14 @@ export interface Gallery {
 }
 
 export interface Product {
-    _id: string;
+  _id: string;
   title: string;
-    description: string;    
-    price: number;
-    image: string[];
-      "length": number;
-            "height": number;
-            "width": number;
-            "weight": number;
-            "colors": string[
-            ];
-
+  description: string;
+  price: number;
+  image: string[];
+  length: number;
+  height: number;
+  width: number;
+  weight: number;
+  colors: string[];
 }

@@ -2,49 +2,55 @@ import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import css from "./ProductCard.module.css";
 
-interface ProductData {
-  id: string;
-  name?: string;
-  price?: number;
-  image?: string;
-  description?: string;
+export interface ProductData {
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  length?: number;
+  height?: number;
+  width?: number;
+  weight?: number;
+  colors?: string;
 }
 
-interface ProductCardProps extends ProductData {
+interface ProductCardProps {
+  data: ProductData;
   onAddToCart: (product: ProductData) => void;
-  onOpenDetails: (product: ProductData) => void;
 }
 
-export default function ProductCard({
-  id,
-  name,
-  price,
-  image,
-  description,
-  onAddToCart,
-  onOpenDetails,
-}: ProductCardProps) {
+export default function ProductCard({ data, onAddToCart }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
+      id={data._id}
       className={css.card}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <img
-        src={image}
-        alt={name}
+        src={data.image}
+        alt={data.title}
         className={`${css.image} ${isHovered ? css.imageZoom : ""}`}
       />
 
       <div className={css.content}>
-        <h3 className={css.title}>{name}</h3>
+        <h3 className={css.title}>{data.title}</h3>
+        <div className={css.parametrs}>
+          {data.length && <p className={css.length}>{data.length} мм</p>}
+          {data.height && <p className={css.height}>{data.height} мм</p>}
+          {data.width && <p className={css.width}>{data.width} мм</p>}
+          {data.weight && <p className={css.weight}>{data.weight} г</p>}
+          {data.colors && <p className={css.colors}>{data.colors}</p>}
+        </div>
 
-        {description && <p className={css.description}>{description}</p>}
-
+        {data.description && (
+          <p className={css.description}>{data.description}</p>
+        )}
         <div className={css.priceRow}>
-          <span className={css.price}>${price.toFixed(2)}</span>
+          <span className={css.price}>${data.price.toFixed(2)}</span>
           <div className={css.stars}>
             {[...Array(5)].map((_, i) => (
               <span key={i} className={css.star}>
@@ -53,19 +59,8 @@ export default function ProductCard({
             ))}
           </div>
         </div>
-
-        <button
-          onClick={() => onAddToCart({ id, name, price, image, description })}
-          className={css.cartButton}
-        >
-          <ShoppingCart className={css.cartIcon} />В кошик
-        </button>
-        <button
-          onClick={() => onOpenDetails({ id })}
-          className={css.buttonDetailis}
-        >
-          {" "}
-          Деталі
+        <button onClick={() => onAddToCart(data)} className={css.cartButton}>
+          <ShoppingCart className={css.cartIcon} /> В кошик
         </button>
       </div>
     </div>

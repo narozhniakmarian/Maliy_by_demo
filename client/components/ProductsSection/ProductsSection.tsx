@@ -9,6 +9,8 @@ import "swiper/css/pagination";
 import SwiperCore from "swiper";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Mousewheel, EffectCoverflow } from "swiper/modules";
+import fetchStore from "@/lib/api/fetchStore/fetchStore";
+import type { ProductData } from "../ProductCard/ProductCard";
 
 SwiperCore.use([Pagination, Mousewheel]);
 
@@ -17,7 +19,7 @@ interface Product {
   name: string;
   price: number;
   image: string;
-  description?: string;
+  // description?: string;
 }
 
 interface ProductsSectionProps {
@@ -25,8 +27,8 @@ interface ProductsSectionProps {
 }
 
 export default function ProductsSection({ onAddToCart }: ProductsSectionProps) {
-  const [products, setProducts] = useState<Product[]>([]);
-
+  // const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<ProductData[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const maxVisibleDots = 5;
   const totalSlides = products.length;
@@ -37,76 +39,91 @@ export default function ProductsSection({ onAddToCart }: ProductsSectionProps) {
     return Array.from({ length: end - start }, (_, i) => start + i);
   };
 
-  // Mock products - replace with API call
   useEffect(() => {
-    const mockProducts: Product[] = [
-      {
-        id: "1",
-        name: "Classic Spinner",
-        price: 12.99,
-        image:
-          "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
-        description: "Traditional spinner lure for trophy fishing",
-      },
-      {
-        id: "2",
-        name: "Deep Diver",
-        price: 14.99,
-        image:
-          "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=400&fit=crop",
-        description: "Perfect for deep water fishing",
-      },
-      {
-        id: "3",
-        name: "Surface Lure",
-        price: 11.99,
-        image:
-          "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
-        description: "Creates water disturbance to attract fish",
-      },
-      {
-        id: "4",
-        name: "Crankbait Pro",
-        price: 16.99,
-        image:
-          "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=400&fit=crop",
-        description: "Advanced design for serious anglers",
-      },
-      {
-        id: "5",
-        name: "Soft Plastic",
-        price: 9.99,
-        image:
-          "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
-        description: "Lifelike soft body construction",
-      },
-      {
-        id: "6",
-        name: "Topwater Deluxe",
-        price: 18.99,
-        image:
-          "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=400&fit=crop",
-        description: "Premium topwater fishing experience",
-      },
-      {
-        id: "7",
-        name: "Jig Master",
-        price: 13.99,
-        image:
-          "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
-        description: "Versatile jig for all conditions",
-      },
-      {
-        id: "8",
-        name: "Finesse Lure",
-        price: 10.99,
-        image:
-          "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=400&fit=crop",
-        description: "Subtle presentation for selective fish",
-      },
-    ];
-    setProducts(mockProducts);
+    async function loadProducts() {
+      try {
+        const res = await fetchStore();
+        setProducts(res.data);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+      }
+    }
+    loadProducts();
   }, []);
+
+  const handleAddToCart = (product) => {
+    console.log("Added to cart:", product);
+  };
+
+  // useEffect(() => {
+  //   const mockProducts: Product[] = [
+  //     {
+  //       id: "1",
+  //       name: "Classic Spinner",
+  //       price: 12.99,
+  //       image:
+  //         "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
+  //       description: "Traditional spinner lure for trophy fishing",
+  //     },
+  //     {
+  //       id: "2",
+  //       name: "Deep Diver",
+  //       price: 14.99,
+  //       image:
+  //         "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=400&fit=crop",
+  //       description: "Perfect for deep water fishing",
+  //     },
+  //     {
+  //       id: "3",
+  //       name: "Surface Lure",
+  //       price: 11.99,
+  //       image:
+  //         "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
+  //       description: "Creates water disturbance to attract fish",
+  //     },
+  //     {
+  //       id: "4",
+  //       name: "Crankbait Pro",
+  //       price: 16.99,
+  //       image:
+  //         "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=400&fit=crop",
+  //       description: "Advanced design for serious anglers",
+  //     },
+  //     {
+  //       id: "5",
+  //       name: "Soft Plastic",
+  //       price: 9.99,
+  //       image:
+  //         "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
+  //       description: "Lifelike soft body construction",
+  //     },
+  //     {
+  //       id: "6",
+  //       name: "Topwater Deluxe",
+  //       price: 18.99,
+  //       image:
+  //         "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=400&fit=crop",
+  //       description: "Premium topwater fishing experience",
+  //     },
+  //     {
+  //       id: "7",
+  //       name: "Jig Master",
+  //       price: 13.99,
+  //       image:
+  //         "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
+  //       description: "Versatile jig for all conditions",
+  //     },
+  //     {
+  //       id: "8",
+  //       name: "Finesse Lure",
+  //       price: 10.99,
+  //       image:
+  //         "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=400&fit=crop",
+  //       description: "Subtle presentation for selective fish",
+  //     },
+  //   ];
+  //   setProducts(mockProducts);
+  // }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -181,19 +198,18 @@ export default function ProductsSection({ onAddToCart }: ProductsSectionProps) {
             ))}
           </div>
           {products.map((product) => (
-            <SwiperSlide key={product.id} className={css.swiperSlide}>
+            <SwiperSlide key={product._id} className={css.swiperSlide}>
               <ProductCard
-                {...product}
+                data={product}
                 onAddToCart={() =>
                   onAddToCart({
-                    id: product.id,
-                    name: product.name,
+                    id: product._id,
+                    name: product.title,
                     price: product.price,
                     image: product.image,
                     quantity: 1,
                   })
                 }
-                onOpenDetails={() => ({ id: product.id })}
               />
             </SwiperSlide>
           ))}
