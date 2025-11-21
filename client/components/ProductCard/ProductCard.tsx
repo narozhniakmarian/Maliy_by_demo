@@ -23,6 +23,14 @@ interface ProductCardProps {
 export default function ProductCard({ data, onAddToCart }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
+  const dimsParts: string[] = [];
+  if (data.length) dimsParts.push(`${data.length} мм`);
+  if (data.width) dimsParts.push(`${data.width} мм`);
+  if (data.height) dimsParts.push(`${data.height} мм`);
+  const dimensions = dimsParts.join(" × ");
+  const weight = data.weight ? `${data.weight} г` : null;
+  const colors = data.colors ? data.colors : null;
+
   return (
     <div
       id={data._id}
@@ -37,13 +45,13 @@ export default function ProductCard({ data, onAddToCart }: ProductCardProps) {
       />
 
       <div className={css.content}>
-        <h3 className={css.title}>{data.title}</h3>
-        <div className={css.parametrs}>
-          {data.length && <p className={css.length}>{data.length} мм</p>}
-          {data.height && <p className={css.height}>{data.height} мм</p>}
-          {data.width && <p className={css.width}>{data.width} мм</p>}
-          {data.weight && <p className={css.weight}>{data.weight} г</p>}
-          {data.colors && <p className={css.colors}>{data.colors}</p>}
+        <div className={css.metaRow}>
+          <h3 className={css.title}>{data.title}</h3>
+          <div className={css.chips}>
+            {dimensions && <span className={css.chip}>{dimensions}</span>}
+            {weight && <span className={css.chip}>{weight}</span>}
+            {colors && <span className={css.chip}>{colors}</span>}
+          </div>
         </div>
 
         {data.description && (

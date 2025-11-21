@@ -51,7 +51,13 @@ export default function GallerySection() {
     async function loadGallery() {
       try {
         const galleryData = await fetchGallery();
-        setGalleryImages(galleryData.data);
+        // Normalize API response: some endpoints may return { data: [...] } or [...] directly
+        const items = Array.isArray(galleryData)
+          ? galleryData
+          : Array.isArray((galleryData as any)?.data)
+          ? (galleryData as any).data
+          : [];
+        setGalleryImages(items);
       } catch (error) {
         console.error("Error fetching gallery data:", error);
       }
@@ -67,7 +73,7 @@ export default function GallerySection() {
           <div className={css.swiperContainer}>
             <div className="swiper" ref={swiperRef}>
               <div className="swiper-wrapper">
-                {galleryImages.map((image) => (
+                {(galleryImages || []).map((image) => (
                   <div key={image._id} className="swiper-slide">
                     <div className={css.swiperSlide}>
                       <img src={image.image} alt={image.description} />

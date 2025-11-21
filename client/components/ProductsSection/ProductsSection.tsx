@@ -43,7 +43,23 @@ export default function ProductsSection({ onAddToCart }: ProductsSectionProps) {
     async function loadProducts() {
       try {
         const res = await fetchStore();
-        setProducts(res.data);
+        // Normalize API data to match ProductCard.ProductData shape
+        const normalized = (res.data || []).map((p: any) => ({
+          _id: p._id,
+          title: p.title || p.name || "",
+          description: p.description || "",
+          price: typeof p.price === "number" ? p.price : Number(p.price) || 0,
+          // API may return an array of images — take the first one
+          image: Array.isArray(p.image) ? p.image[0] || "" : p.image || "",
+          length: p.length,
+          height: p.height,
+          width: p.width,
+          weight: p.weight,
+          // API may return colors as array — join to single string for the card
+          colors: Array.isArray(p.colors) ? p.colors.join(", ") : p.colors || "",
+        }));
+
+        setProducts(normalized);
       } catch (err) {
         console.error("Error fetching products:", err);
       }
@@ -185,6 +201,7 @@ export default function ProductsSection({ onAddToCart }: ProductsSectionProps) {
           // autoplay={{ delay: 3000, disableOnInteraction: false }}
           effect="coverflow"
           modules={[Pagination, Mousewheel, Autoplay, EffectCoverflow]}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
           onClick={(swiper) => swiper.slideTo(swiper.clickedIndex)}
           className={css.swiper}
         >
