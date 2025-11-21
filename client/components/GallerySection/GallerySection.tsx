@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Swiper from "swiper";
 import "swiper/css/autoplay";
 import "swiper/css";
@@ -8,13 +8,14 @@ import css from "./GallerySection.module.css";
 import fetchGallery from "@/lib/api/fetchGaleery/fetchGaleery";
 
 interface GalleryImage {
-  id: string;
+  _id: string;
   image: string;
-  alt: string;
+  description: string;
 }
 
 export default function GallerySection() {
   const swiperRef = useRef<HTMLDivElement>(null);
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
 
   useEffect(() => {
     if (swiperRef.current) {
@@ -45,55 +46,18 @@ export default function GallerySection() {
       };
     }
   }, []);
-async function loadGallery() {
-  try {
-    const galleryData = await fetchGallery();
-    console.log("Gallery Data:", galleryData.data);
-  } catch (error) {
-    console.error("Error fetching gallery data:", error);
-  }
-}
-loadGallery();
 
-
-  const mockImages: GalleryImage[] = [
-    {
-      id: "1",
-      image:
-        "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop",
-      alt: "Fishing lure close-up",
-    },
-    {
-      id: "2",
-      image:
-        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=600&fit=crop",
-      alt: "Artisan workspace",
-    },
-    {
-      id: "3",
-      image:
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
-      alt: "Fishing at sunset",
-    },
-    {
-      id: "4",
-      image:
-        "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop",
-      alt: "Lure collection",
-    },
-    {
-      id: "5",
-      image:
-        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=600&fit=crop",
-      alt: "Workshop detail",
-    },
-    {
-      id: "6",
-      image:
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
-      alt: "River fishing",
-    },
-  ];
+  useEffect(() => {
+    async function loadGallery() {
+      try {
+        const galleryData = await fetchGallery();
+        setGalleryImages(galleryData.data);
+      } catch (error) {
+        console.error("Error fetching gallery data:", error);
+      }
+    }
+    loadGallery();
+  }, []);
 
   return (
     <section id="gallery" className={css.gallery}>
@@ -103,10 +67,10 @@ loadGallery();
           <div className={css.swiperContainer}>
             <div className="swiper" ref={swiperRef}>
               <div className="swiper-wrapper">
-                {mockImages.map((image) => (
-                  <div key={image.id} className="swiper-slide">
+                {galleryImages.map((image) => (
+                  <div key={image._id} className="swiper-slide">
                     <div className={css.swiperSlide}>
-                      <img src={image.image} alt={image.alt} />
+                      <img src={image.image} alt={image.description} />
                     </div>
                   </div>
                 ))}
