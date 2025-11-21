@@ -15,11 +15,12 @@ export function createServer() {
 
   // Middleware
   app.use(logger);
-  app.use(
-    cors({
-      origin: process.env.CLIENT_ORIGIN || "http://localhost:3000",
-    }),
-  );
+  // app.use(
+  //   cors({
+  //     origin: process.env.CLIENT_ORIGIN || "http://localhost:3000",
+  //   }),
+  // );
+  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(helmet());

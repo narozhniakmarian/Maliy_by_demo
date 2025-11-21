@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/mousewheel";
 import css from "./GallerySection.module.css";
+import fetchGallery from "@/lib/api/fetchGaleery/fetchGaleery";
 
 interface GalleryImage {
   id: string;
@@ -44,6 +45,16 @@ export default function GallerySection() {
       };
     }
   }, []);
+async function loadGallery() {
+  try {
+    const galleryData = await fetchGallery();
+    console.log("Gallery Data:", galleryData.data);
+  } catch (error) {
+    console.error("Error fetching gallery data:", error);
+  }
+}
+loadGallery();
+
 
   const mockImages: GalleryImage[] = [
     {
