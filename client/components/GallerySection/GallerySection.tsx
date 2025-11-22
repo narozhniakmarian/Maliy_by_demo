@@ -6,8 +6,6 @@ import "swiper/css/mousewheel";
 import "swiper/css/autoplay";
 import css from "./GallerySection.module.css";
 import fetchGallery from "@/lib/api/fetchGaleery/fetchGaleery";
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
 
 interface GalleryImage {
   _id: string;

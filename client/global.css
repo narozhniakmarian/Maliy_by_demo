@@ -14,9 +14,12 @@
 @layer base {
   :root {
 
+
+
+
     --index: calc(1vw + 1vh);
     --transition: 1.5s cubic-bezier(.05, .5, 0, 1);
-    --white-text: hsl(0 0% 100%);
+    --white-text: #ffffff;
     --background: hsl(0 0% 100%);
     --foreground: hsl(20 14% 8%);
     --background-rgb: 255, 255, 255;
@@ -30,11 +33,11 @@
     --primary-foreground: hsl(20 14% 8%);
     --link-hover: hsl(224, 98%, 49%);
     --gold-metal: linear-gradient(90deg,
-        rgb(242, 177, 13) 0%,
+        #f2b10d 0%,
         rgb(251, 217, 81) 20%,
         rgb(242, 185, 13) 40%,
         rgb(226, 174, 43) 60%,
-        rgb(251, 217, 81) 80%,
+        #fbd951 80%,
         rgb(242, 177, 13) 100%);
 
     --secondary: hsl(20 14% 8%);
@@ -76,7 +79,24 @@
   }
 
   .dark {
-    --background: hsl(12, 12%, 8%);
+
+
+    --index: calc(1vw + 1vh);
+    --header-offset: 64px;
+    --bg-dark: rgb(23, 19, 18);
+    --bg-darker: rgba(14, 7, 2, 0.894);
+    --bg-card: rgb(30, 41, 59);
+    /*!*/
+    --text-primary: rgb(241, 245, 249);
+    --text-secondary: rgb(203, 213, 225);
+    --neon-gold1: rgb(242, 177, 13);
+    --neon-pink: rgb(255, 102, 0);
+    --neon-green: #00ff00;
+    --neon-orange: rgb(255, 102, 0);
+    --neon-gold2: rgba(242, 177, 13, 0.482);
+    --border-color: rgb(51, 65, 85);
+    --text-shadow: rgba(255, 153, 0, 0.1);
+    --background: #171312;
     --foreground: hsl(0 0% 98%);
     --background-rgb: 20, 19, 18;
     --card: hsl(20 14% 15%);
