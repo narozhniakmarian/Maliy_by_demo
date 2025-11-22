@@ -53,7 +53,7 @@
     bottom: 0;
     z-index: 2;
     padding: 1rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0,0,0,0.08));
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.08));
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -95,7 +95,7 @@
 }
 
 .chip {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.08);
     color: #fff;
     padding: 0.25rem 0.5rem;
     border-radius: 999px;
@@ -186,4 +186,54 @@
     100% {
         background-position: 100% 0%;
     }
+}
+
+
+
+
+
+
+/******\
+
+*/
+
+
+.showcase-carousel__image-wrapper>* {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    perspective: 150px;
+    transform-style: preserve-3d;
+}
+
+
+.showcase-carousel__image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.showcase-carousel__image-left {
+    perspective-origin: left center;
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+.showcase-carousel__image-right {
+    perspective-origin: right center;
+    clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+    /* Фикс вертикальной полосы на некоторых дисплеях */
+    margin-left: -.55px
+}
+
+.showcase-carousel__image-left .showcase-carousel__image {
+    animation: k-left-side 2s ease-in-out infinite;
+    animation-direction: alternate;
+}
+
+.showcase-carousel__image-right .showcase-carousel__image {
+    animation: k-right-side 2s ease-in-out infinite;
+    animation-direction: alternate;
 }

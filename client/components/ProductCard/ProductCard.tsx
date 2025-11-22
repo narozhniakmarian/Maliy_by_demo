@@ -1,6 +1,6 @@
 import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
-import css from "./ProductCard.module.css";
+import "./ProductCard.css";
 
 export interface ProductData {
   _id: string;
@@ -34,41 +34,46 @@ export default function ProductCard({ data, onAddToCart }: ProductCardProps) {
   return (
     <div
       id={data._id}
-      className={css.card}
+      className="showcase-carousel__image-wrapper"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img
-        src={data.image}
-        alt={data.title}
-        className={`${css.image} ${isHovered ? css.imageZoom : ""}`}
-      />
-
-      <div className={css.content}>
-        <div className={css.metaRow}>
-          <h3 className={css.title}>{data.title}</h3>
-          <div className={css.chips}>
-            {dimensions && <span className={css.chip}>{dimensions}</span>}
-            {weight && <span className={css.chip}>{weight}</span>}
-            {colors && <span className={css.chip}>{colors}</span>}
+      <div className="showcase-carousel__image-left">
+        <div
+          className="showcase-carousel__image"
+          style={{ backgroundImage: `url(${data.image})` }}
+        ></div>
+      </div>
+      <div className="showcase-carousel__image-right">
+        <div
+          className="showcase-carousel__image"
+          style={{ backgroundImage: `url(${data.image})` }}
+        ></div>
+      </div>
+      <p>{data.title}</p>
+      <div className="content">
+        <div className="metaRow">
+          <h3 className="title">"title"</h3>
+          <div className="chips">
+            {dimensions && <span className="chip">{dimensions}</span>}
+            {weight && <span className="chip">{weight}</span>}
+            {colors && <span className="chip">{colors}</span>}
           </div>
         </div>
 
-        {data.description && (
-          <p className={css.description}>{data.description}</p>
-        )}
-        <div className={css.priceRow}>
-          <span className={css.price}>${data.price.toFixed(2)}</span>
-          <div className={css.stars}>
+        {data.description && <p className="description">{data.description}</p>}
+        <div className="priceRow">
+          <span className="price">${data.price.toFixed(2)}</span>
+          <div className="stars">
             {[...Array(5)].map((_, i) => (
-              <span key={i} className={css.star}>
+              <span key={i} className="star">
                 ★
               </span>
             ))}
           </div>
         </div>
-        <button onClick={() => onAddToCart(data)} className={css.cartButton}>
-          <ShoppingCart className={css.cartIcon} /> В кошик
+        <button onClick={() => onAddToCart(data)} className="cartButton">
+          <ShoppingCart className="cartIcon" /> В кошик
         </button>
       </div>
     </div>
