@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import Swiper from "swiper";
-import "swiper/css/autoplay";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/mousewheel";
+import "swiper/css/autoplay";
 import css from "./GallerySection.module.css";
 import fetchGallery from "@/lib/api/fetchGaleery/fetchGaleery";
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 interface GalleryImage {
   _id: string;
@@ -24,7 +26,7 @@ export default function GallerySection() {
         grabCursor: true,
         initialSlide: 2,
         centeredSlides: true,
-        spaceBetween: 6,
+        spaceBetween: 10,
         speed: 800,
         autoplay: {
           delay: 3000,
@@ -36,13 +38,9 @@ export default function GallerySection() {
           1024: { slidesPerView: 3 },
         },
       });
-      window.addEventListener("resize", () => {
-        swiperInstance.update();
-      });
+      window.addEventListener("resize", swiperInstance.update);
       return () => {
-        window.removeEventListener("resize", () => {
-          swiperInstance.update();
-        });
+        window.removeEventListener("resize", swiperInstance.update);
       };
     }
   }, []);
@@ -51,12 +49,11 @@ export default function GallerySection() {
     async function loadGallery() {
       try {
         const galleryData = await fetchGallery();
-        // Normalize API response: some endpoints may return { data: [...] } or [...] directly
         const items = Array.isArray(galleryData)
           ? galleryData
           : Array.isArray((galleryData as any)?.data)
-          ? (galleryData as any).data
-          : [];
+            ? (galleryData as any).data
+            : [];
         setGalleryImages(items);
       } catch (error) {
         console.error("Error fetching gallery data:", error);
@@ -69,12 +66,12 @@ export default function GallerySection() {
     <section id="gallery" className={css.gallery}>
       <div className="container">
         <div className={css.galleryContainer}>
-          <h2 className={css.title}>Фотогалерая </h2>
+          <h2 className={css.title}>Фотогалерея</h2>
           <div className={css.swiperContainer}>
-            <div className="swiper" ref={swiperRef}>
+            <div className={css.swiper} ref={swiperRef}>
               <div className="swiper-wrapper">
-                {(galleryImages || []).map((image) => (
-                  <div key={image._id} className="swiper-slide">
+                {galleryImages.map((image) => (
+                  <div key={image._id} className={`${css.slide} swiper-slide`}>
                     <div className={css.swiperSlide}>
                       <img src={image.image} alt={image.description} />
                     </div>
