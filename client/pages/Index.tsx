@@ -28,7 +28,7 @@ export default function Index() {
 
   const handleAddToCart = (product: Parameters<typeof addItem>[0]) => {
     addItem(product);
-    toast.success(`${product.name} added to cart!`);
+    toast.success(`${product.title} added to cart!`);
   };
 
   if (!mounted) {

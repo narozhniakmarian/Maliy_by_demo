@@ -55,7 +55,7 @@ export default function CartModal({
       const orderDetails = items
         .map(
           (item) =>
-            `${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`,
+            `${item.title} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`,
         )
         .join("\n");
 
@@ -104,12 +104,12 @@ export default function CartModal({
                   {item.image && (
                     <img
                       src={item.image}
-                      alt={item.name}
+                      alt={item.title}
                       className={css.itemImage}
                     />
                   )}
                   <div className={css.itemDetails}>
-                    <h4 className={css.itemName}>{item.name}</h4>
+                    <h4 className={css.itemName}>{item.title}</h4>
                     <p className={css.itemPrice}>${item.price.toFixed(2)}</p>
                     <div className={css.quantityControls}>
                       <button

@@ -7,14 +7,14 @@
     --lineheight: 1.65;
     --userfont: roboto-st, sans-serif;
     --systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-    --padding: 120px;
+    --padding: 140px;
     --transition: cubic-bezier(.4, 0, 0, 1);
 }
 
 /* BOOTSTRAP SETTINGS SECTION */
 
 /* gutter 20px (10px + 10px). Comment this code for default gutter start at 1.5rem (24px) wide. */
-.container,
+/* .container,
 .container-fluid,
 .container-lg,
 .container-md,
@@ -27,7 +27,7 @@
 .row,
 .row>* {
     --bs-gutter-x: 1.25rem;
-}
+} */
 
 /* FONTS LOAD SECTION */
 
@@ -92,7 +92,7 @@ textarea:required:valid {
     border-color: green;
 }
 
-body {
+/* body {
     font-family: var(--userfont);
     font-size: var(--regular-text);
     line-height: var(--lineheight);
@@ -100,31 +100,18 @@ body {
     min-width: 320px;
     position: relative;
     overflow-x: hidden;
-}
+} */
 
 /* USER STYLES */
 
-body,
-html {
-    height: 100%;
-}
+
 
 .showcase {
-    background-color: #000;
+    background: linear-gradient(to bottom, var(--bg-darker), var(--bg-dark), var(--bg-darker));
     height: 100%;
     position: relative;
-    color: #fff;
-    /* overflow: hidden; */
 }
 
-.showcase::before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 1;
-    box-shadow: inset 0 0 500px #000;
-}
 
 .showcase::after {
     content: '';
@@ -133,7 +120,9 @@ html {
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: url(../images/light.png);
+    background-image:
+        /* linear-gradient(rgba(255, 180, 120, 0.25), rgba(255, 180, 120, 0.25)), */
+        url("https://res.cloudinary.com/dg8q6nv9s/image/upload/v1763853901/light_bzeyl0.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center -65px;
@@ -164,7 +153,9 @@ html {
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: url(../images/glow.png);
+    background-image:
+        linear-gradient(rgba(55, 32, 13, 0.25), rgba(41, 29, 19, 0.25)),
+        url("https: //res.cloudinary.com/dg8q6nv9s/image/upload/v1763854005/glow_ykctp9.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -187,6 +178,7 @@ html {
 }
 
 .showcase-carousel .swiper-wrapper {
+    height: 600px;
     transition: var(--transition);
 }
 
@@ -221,7 +213,7 @@ html {
 
 .showcase-carousel__item.swiper-slide-active {
     opacity: .8;
-    transform: scale(.98);
+    transform: scale(.88);
 }
 
 .showcase-carousel__image-wrapper>* {

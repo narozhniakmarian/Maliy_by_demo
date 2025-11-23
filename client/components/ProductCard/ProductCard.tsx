@@ -50,7 +50,6 @@ export default function ProductCard({ data, onAddToCart }: ProductCardProps) {
           style={{ backgroundImage: `url(${data.image})` }}
         ></div>
       </div>
-      <p>{data.title}</p>
       <div className="content">
         <div className="metaRow">
           <h3 className="title">"title"</h3>

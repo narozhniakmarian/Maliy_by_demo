@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/mousewheel";
 import "swiper/css/autoplay";
-import css from "./GallerySection.module.css";
+import "./GallerySection.css";
 import fetchGallery from "@/lib/api/fetchGaleery/fetchGaleery";
 
 interface GalleryImage {
@@ -61,21 +61,25 @@ export default function GallerySection() {
   }, []);
 
   return (
-    <section id="gallery" className={css.gallery}>
+    <section id="gallery" className="gallery">
       <div className="container">
-        <div className={css.galleryContainer}>
-          <h2 className={css.title}>Фотогалерея</h2>
-          <div className={css.swiperContainer}>
-            <div className={css.swiper} ref={swiperRef}>
-              <div className="swiper-wrapper">
-                {galleryImages.map((image) => (
-                  <div key={image._id} className={`${css.slide} swiper-slide`}>
-                    <div className={css.swiperSlide}>
-                      <img src={image.image} alt={image.description} />
-                    </div>
-                  </div>
-                ))}
-              </div>
+        <div className="gallery__container">
+          <h2 className="gallery__title scroll-animate-up">Фотогалерея</h2>
+          <div
+            className="swiper gallery__slider"
+            ref={swiperRef}
+            id="gallery-swiper"
+          >
+            <div className="swiper-wrapper">
+              {galleryImages.map((image) => (
+                <div key={image._id} className="slide swiper-slide">
+                  <img
+                    src={image.image}
+                    alt={image.description}
+                    className="gallery-image"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
